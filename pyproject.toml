@@ -27,7 +27,9 @@ requires-python = ">=3.9"
 
 [project.optional-dependencies]
 examples = [
-    "stable_baselines3"
+    "stable_baselines3",
+    "sb3_contrib",
+    "jsp_instance_utils",
 ]
 dev = [
     "pip-tools",

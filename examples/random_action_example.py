@@ -17,10 +17,10 @@ if __name__ == '__main__':
         jsp_instance=custom_jsp_instance,
     )
     obs, info = env.reset()
-    env.render(mode='debug') #
 
-    for a in [5, 1, 2, 6, 3, 7, 4, 8]:
-        obs, reward, terminated, truncated, info  = env.step(a)
-        env.render(mode='debug', wait=None)
+    terminated = False
 
-    env.render()
+    while not terminated:
+        action = env.action_space.sample(mask=env.valid_action_mask())
+        obs, reward, terminated, truncated, info = env.step(action)
+        env.render(mode='debug')

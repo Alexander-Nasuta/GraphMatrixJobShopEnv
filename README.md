@@ -1,10 +1,12 @@
 # Graph Matrix Job Shop Env
 
+![](https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv/raw/master/resources/asni-render.gif)
+
 A Gymnasium Environment for Job Shop Scheduling using the Graph Matrix Representation by [Błażewicz et al.](https://www.sciencedirect.com/science/article/abs/pii/S0377221799004865).
 
 - Github: [GraphMatrixJobShopEnv](https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv)
 - Pypi: [GraphMatrixJobShopEnv](https://pypi.org/project/graph-matrix-jsp-env/)
-- Documentation: [GraphMatrixJobShopEnv Docs](https://alexander-nasuta.github.io/)
+- Documentation: [GraphMatrixJobShopEnv Docs](https://graphmatrixjobshopenv.readthedocs.io/en/latest/)
 
 ## Description
 
@@ -16,6 +18,95 @@ A minimal working example is provided in the [Quickstart](#quickstart) section.
 
 ```shell
 pip install graph-matrix-jsp-env
+```
+
+### Random Agent Example
+
+```python
+from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+import numpy as np
+
+if __name__ == '__main__':
+    custom_jsp_instance = np.array([
+        [
+            [0, 1, 2, 3],  # job 0
+            [0, 2, 1, 3]  # job 1
+        ],
+        [
+            [11, 3, 3, 12],  # task durations of job 0
+            [5, 16, 7, 4]  # task durations of job 1
+        ]
+
+    ], dtype=np.int32)
+    env = DisjunctiveGraphJspEnv(
+        jsp_instance=custom_jsp_instance,
+    )
+    obs, info = env.reset()
+
+    terminated = False
+
+    while not terminated:
+        action = env.action_space.sample(mask=env.valid_action_mask())
+        obs, reward, terminated, truncated, info = env.step(action)
+        env.render(mode='debug')
+```
+
+### Stable Baselines3 Example
+
+To train a PPO agent using the environment with Stable Baselines3 one first needs to install the required dependencies:
+
+```shell
+pip install stable-baselines3
+pip install sb3-contrib
+```
+
+Then one can use the following code to train a PPO agent:
+
+```python
+import gymnasium as gym
+import sb3_contrib
+import stable_baselines3 as sb3
+
+import numpy as np
+from sb3_contrib.common.maskable.policies import MaskableActorCriticPolicy
+from sb3_contrib.common.wrappers import ActionMasker
+
+from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+
+if __name__ == '__main__':
+    
+    custom_jsp_instance = np.array([
+        [
+            [0, 1, 2, 3],  # job 0
+            [0, 2, 1, 3]  # job 1
+        ],
+        [
+            [11, 3, 3, 12],  # task durations of job 0
+            [5, 16, 7, 4]  # task durations of job 1
+        ]
+
+    ], dtype=np.int32)
+    
+    # just make sure to import them from jsp_instance_utils.instances
+    env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance) 
+    env = sb3.common.monitor.Monitor(env)
+
+
+    def mask_fn(env: gym.Env) -> np.ndarray:
+        return env.unwrapped.valid_action_mask()
+
+
+    env = ActionMasker(env, mask_fn)
+
+    model = sb3_contrib.MaskablePPO(
+        MaskableActorCriticPolicy,
+        env,
+        verbose=1,
+        device="cpu" # Note: You can also use "cuda" if you have a GPU with CUDA
+    )
+
+    # Train the agent
+    model.learn(total_timesteps=10_000)
 ```
 
 ## Visualizations
@@ -56,7 +147,7 @@ if __name__ == '__main__':
     env.render(mode=mode) 
 
     for a in [5, 1, 2, 6, 3, 7, 4, 8]:
-        obs, reward, done, info, _ = env.step(a)
+        env.step(a)
         env.render(mode=mode)
 
     env.render()
