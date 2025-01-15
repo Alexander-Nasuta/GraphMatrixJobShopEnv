@@ -3,7 +3,7 @@
 A Gymnasium Environment for Job Shop Scheduling using the Graph Matrix Representation by [Błażewicz et al.](https://www.sciencedirect.com/science/article/abs/pii/S0377221799004865).
 
 - Github: [GraphMatrixJobShopEnv](https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv)
-- Pypi: [GraphMatrixJobShopEnv](https://pypi.org/project/manta-manim-theme/)
+- Pypi: [GraphMatrixJobShopEnv](https://pypi.org/project/graph-matrix-jsp-env/)
 - Documentation: [GraphMatrixJobShopEnv Docs](https://alexander-nasuta.github.io/)
 
 ## Description
