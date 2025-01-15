@@ -76,7 +76,7 @@ The individual rendering modes result in the following visualisations:
 
 ![](https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv/raw/master/resources/default-render.gif)
 
-
+The Terminal used for the visualisations is [Ghostty](https://github.com/ghostty-org/ghostty).
 
 ## State of the Project
 

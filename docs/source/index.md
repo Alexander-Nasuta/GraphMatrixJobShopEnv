@@ -8,4 +8,5 @@
 :caption: 'Contents:'
 :maxdepth: 2
 
+example-gallery
 ```

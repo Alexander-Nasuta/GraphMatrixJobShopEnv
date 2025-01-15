@@ -89,6 +89,23 @@ def print_graph_matrix_to_console(
         undo_task_encoding=False,
         c_map="rainbow"
 ) -> None:
+    """
+    prints a graph matrix to the console.
+
+    :param graph: the graph matrix to print
+
+    :param n_machines: the number of machines. This could be determined by the graph matrix itself, but it is more
+                       efficient to pass it as an argument.
+
+    :param undo_task_encoding: If set to True, the task encoding will be undone. This means that member of the unknown
+                               list will have the minus sign removed. Members of the successor list will be reduced by
+                               the number of tasks. This is useful for debugging purposes.
+
+    :param c_map: A string that specifies the colormap to use. This must be a valid colormap name from matplotlib.
+                  The color map is used to color the machines (so that they match the colors of the gantt chart
+                  visualisation).
+    :return:
+    """
     state = graph
     n_rows, n_cols = len(state), len(state[0])
     n_total_tasks = n_rows
