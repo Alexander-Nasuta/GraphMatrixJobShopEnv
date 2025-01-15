@@ -15,7 +15,7 @@ A minimal working example is provided in the [Quickstart](#quickstart) section.
 ## Quickstart
 
 ```shell
-pip install <<todo>>
+pip install graph-matrix-jsp-env
 ```
 
 ## Visualizations
