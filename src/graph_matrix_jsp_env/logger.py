@@ -3,7 +3,7 @@ import shutil
 
 from rich.logging import RichHandler
 
-from disjunctive_graph_jsp_env.wzl_iqs_banner import big_banner, small_banner
+from graph_matrix_jsp_env.wzl_iqs_banner import big_banner, small_banner
 
 # print banner when logger is imported
 w, h = shutil.get_terminal_size((80, 20))

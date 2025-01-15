@@ -75,7 +75,7 @@ def test_left_shifts(left_shift_jsp_instance):
     Unknown(t_9): [2, 3, 4, 5, 6]
 
     """
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     import numpy as np
 
     env = DisjunctiveGraphJspEnv(jsp_instance=left_shift_jsp_instance, ls_enabled=False)

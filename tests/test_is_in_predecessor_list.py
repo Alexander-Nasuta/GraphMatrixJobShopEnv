@@ -23,7 +23,7 @@ def test_is_in_predecessor_list(custom_jsp_instance):
     Predecessor(t_7): [5, 6]
     Predecessor(t_8): [5, 6, 7]
     """
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
 
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance, c_lb=0)
 

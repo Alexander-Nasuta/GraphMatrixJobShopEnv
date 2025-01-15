@@ -57,7 +57,7 @@ def left_shift_jsp_instance():
 
 @pytest.fixture(scope="function")
 def env(custom_jsp_instance):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
 
     env = DisjunctiveGraphJspEnv(
         jsp_instance=custom_jsp_instance,
@@ -68,7 +68,7 @@ def env(custom_jsp_instance):
 
 @pytest.fixture(scope="function")
 def python_env_ft06(ft06):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
 
     env = DisjunctiveGraphJspEnv(
         jsp_instance=ft06,
@@ -77,67 +77,3 @@ def python_env_ft06(ft06):
     yield env
 
 
-@pytest.fixture(scope="function")
-def rust_env(custom_jsp_instance):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env_rust import DisjunctiveGraphJspEnvRust
-
-    env = DisjunctiveGraphJspEnvRust(
-        jsp_instance=custom_jsp_instance,
-        c_lb=0,
-    )
-    yield env
-
-
-@pytest.fixture(scope="function")
-def cpp_env(custom_jsp_instance):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env_cpp import DisjunctiveGraphJspEnvCpp
-
-    env = DisjunctiveGraphJspEnvCpp(
-        jsp_instance=custom_jsp_instance,
-        c_lb=0,
-    )
-    yield env
-
-
-@pytest.fixture(scope="function")
-def rust_env_ft06(ft06):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env_rust import DisjunctiveGraphJspEnvRust
-
-    env = DisjunctiveGraphJspEnvRust(
-        jsp_instance=ft06,
-        c_lb=0,
-    )
-    yield env
-
-
-@pytest.fixture(scope="function")
-def cpp_env_ft06(ft06):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env_cpp import DisjunctiveGraphJspEnvCpp
-
-    env = DisjunctiveGraphJspEnvCpp(
-        jsp_instance=ft06,
-        c_lb=0,
-    )
-    yield env
-
-
-@pytest.fixture(scope="function")
-def rust_env_ls(left_shift_jsp_instance):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env_rust import DisjunctiveGraphJspEnvRust
-
-    env = DisjunctiveGraphJspEnvRust(
-        jsp_instance=left_shift_jsp_instance,
-        c_lb=0,
-    )
-    yield env
-
-
-@pytest.fixture(scope="function")
-def cpp_env_ls(left_shift_jsp_instance):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env_cpp import DisjunctiveGraphJspEnvCpp
-
-    env = DisjunctiveGraphJspEnvCpp(
-        jsp_instance=left_shift_jsp_instance,
-        c_lb=0,
-    )
-    yield env

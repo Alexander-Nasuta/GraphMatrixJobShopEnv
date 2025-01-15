@@ -23,7 +23,7 @@ def test_is_in_successor_list(custom_jsp_instance):
     Successor(t_7): [8]
     Successor(t_8): []
     """
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
 
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance, c_lb=0)
 

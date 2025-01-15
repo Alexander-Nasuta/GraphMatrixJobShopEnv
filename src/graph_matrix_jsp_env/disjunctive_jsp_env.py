@@ -3,11 +3,11 @@ import numpy as np
 import pandas as pd
 import numpy.typing as npt
 
-from disjunctive_graph_jsp_env.logger import log
+from graph_matrix_jsp_env.logger import log
 
 from typing import Any, SupportsFloat
 
-from disjunctive_graph_jsp_env.visualisation import print_graph_matrix_to_console
+from graph_matrix_jsp_env.visualisation import print_graph_matrix_to_console
 from jsp_vis.console import gantt_chart_console
 from jsp_vis.cv2_window import render_gantt_in_window
 from jsp_vis.rgb_array import gantt_chart_rgb_array
@@ -259,7 +259,7 @@ class DisjunctiveGraphJspEnv(gym.Env):
         self._initialize_matrix(jsp_instance=self._jsp_instance)
         return np.array(self._state), {}
 
-    def render(self, mode='human') -> npt.NDArray | None:
+    def render(self, mode='human', wait=1) -> npt.NDArray | None:
         if mode == 'human':
             gantt_chart_console(self._state_as_gant_dataframes(), n_machines=self._n_machines)
         elif mode == 'ansi':
@@ -269,7 +269,7 @@ class DisjunctiveGraphJspEnv(gym.Env):
             print_graph_matrix_to_console(self._state, self._n_machines, undo_task_encoding=True)
             gantt_chart_console(self._state_as_gant_dataframes(), n_machines=self._n_machines)
         elif mode == 'window':
-            render_gantt_in_window(self._state_as_gant_dataframes(), n_machines=self._n_machines, wait=1)
+            render_gantt_in_window(self._state_as_gant_dataframes(), n_machines=self._n_machines, wait=wait)
         elif mode == 'rgb_array':
             return gantt_chart_rgb_array(self._state_as_gant_dataframes(), n_machines=self._n_machines)
 

@@ -72,7 +72,7 @@ def test_fully_scheduled(custom_jsp_instance):
     Unknown(t_8): []
 
     """
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     import numpy as np
 
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance, c_lb=0)
@@ -159,7 +159,7 @@ def test_partial_scheduling(custom_jsp_instance):
     Unknown(t_8): [4]
 
     """
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     import numpy as np
 
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance, c_lb=0)
@@ -203,7 +203,7 @@ def test_partial_scheduling(custom_jsp_instance):
 
 
 def test_random_actions_custom_instance(custom_jsp_instance):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance)
     terminal = False
     for _ in range(8):
@@ -220,7 +220,7 @@ def test_random_actions_custom_instance(custom_jsp_instance):
 
 
 def test_random_actions_ft06(ft06):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     env = DisjunctiveGraphJspEnv(jsp_instance=ft06)
     terminal = False
     for _ in range(36):

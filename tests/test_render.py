@@ -4,7 +4,7 @@ import pytest
 
 
 def test_render_mode_human(custom_jsp_instance, ft06, left_shift_jsp_instance):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
 
     for instance in [custom_jsp_instance, ft06, left_shift_jsp_instance]:
         env = DisjunctiveGraphJspEnv(jsp_instance=instance)
@@ -12,7 +12,7 @@ def test_render_mode_human(custom_jsp_instance, ft06, left_shift_jsp_instance):
 
 
 def test_render_mode_debug(custom_jsp_instance, ft06, left_shift_jsp_instance):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
 
     for instance in [custom_jsp_instance, ft06, left_shift_jsp_instance]:
         env = DisjunctiveGraphJspEnv(jsp_instance=instance)
@@ -20,7 +20,7 @@ def test_render_mode_debug(custom_jsp_instance, ft06, left_shift_jsp_instance):
 
 
 def test_random_action_and_render(custom_jsp_instance, ft06, left_shift_jsp_instance):
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     import numpy as np
 
     for instance in [custom_jsp_instance, ft06, left_shift_jsp_instance]:

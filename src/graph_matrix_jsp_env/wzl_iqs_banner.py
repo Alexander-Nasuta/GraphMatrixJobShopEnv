@@ -1,6 +1,7 @@
 # flake8: noqa
 import importlib.metadata
-__version__ = importlib.metadata.version("disjunctive_graph_jsp_env")
+#__version__ = importlib.metadata.version("disjunctive_graph_jsp_env")
+__version__ = "0.1.0"
 
 VERSION = __version__
 
@@ -74,7 +75,7 @@ big_banner = f"""
 
 {CEND}
     {CBLUE}{CBOLD}
-    Disjunctive Graph Job Shop Problem Environment
+    Graph Matrix Job Shop Problem Environment
     {CEND}     
 
     Version:    {CGREEN}{VERSION}{CEND}                
@@ -99,7 +100,7 @@ small_banner = f"""
            {CRWTH_LIGHT_BLUE} ▜███▛▐█ ▜█▐███  ▜█▛ ▐███▐█ ▜▙▐█▆▆▛▐███ ▐█   ██  
 {CEND}
     {CBLUE}{CBOLD}
-    Disjunctive Graph Job Shop Problem Environment
+    Graph Matrix Job Shop Problem Environment
     {CEND}     
 
     Version:    {CGREEN}{VERSION}{CEND}

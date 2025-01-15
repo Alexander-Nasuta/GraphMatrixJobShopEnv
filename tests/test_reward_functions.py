@@ -18,7 +18,7 @@ def test_machine_utilization_ignore_unused_machines(custom_jsp_instance):
     the environment will perform the following actions (in that order): 5, 1, 2, 6, 3, 7, 4, 8
     """
 
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance,
                                  reward_function='machine_utilization_ignore_unused_machines')
 
@@ -54,7 +54,7 @@ def test_machine_utilization_avg_default_0(custom_jsp_instance):
 
     """
 
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance, reward_function='machine_utilization_avg_default_0')
 
     for action, expected_reward in zip(
@@ -90,7 +90,7 @@ def test_machine_utilization_avg_default_1(custom_jsp_instance):
 
     """
 
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance, reward_function='machine_utilization_avg_default_1')
 
     for action, expected_reward in zip(
@@ -126,7 +126,7 @@ def test_total_machine_utilization(custom_jsp_instance):
 
     """
 
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance, reward_function='total_machine_utilization')
 
     for action, expected_reward in zip(
@@ -161,7 +161,7 @@ def test_makespan_reward_function(custom_jsp_instance):
     reward:     0,  0,  0,  0,  0,  0,  0,-40
     """
 
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance, reward_function='makespan')
 
     for action, expected_reward in zip(
@@ -196,7 +196,7 @@ def test_makespan_scaled_by_lb_reward_function(custom_jsp_instance):
     reward:     0,  0,  0,  0,  0,  0,  0,-40
     """
 
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     env = DisjunctiveGraphJspEnv(
         jsp_instance=custom_jsp_instance,
         reward_function='makespan_scaled_by_lb',

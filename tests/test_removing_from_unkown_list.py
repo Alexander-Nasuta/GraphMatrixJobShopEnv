@@ -34,7 +34,7 @@ def test_scheduling_removing_from_unknown_list(custom_jsp_instance):
 
         """
 
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     import numpy as np
 
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance, c_lb=0)
@@ -118,7 +118,7 @@ def test_scheduling_removing_from_unknown_list_2(custom_jsp_instance):
 
         """
 
-    from disjunctive_graph_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+    from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
     import numpy as np
 
     env = DisjunctiveGraphJspEnv(jsp_instance=custom_jsp_instance)

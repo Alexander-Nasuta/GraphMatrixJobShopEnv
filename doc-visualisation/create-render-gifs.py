@@ -22,6 +22,8 @@ def create_gif_from_images(folder_path, output_path):
     )
 
 if __name__ == '__main__':
-    folder_path = './asni'
-    output_path = 'asni-render.gif'
-    create_gif_from_images(folder_path, output_path)
+
+    for mode in ['asni','debug','default','window']:
+        folder_path = f'./{mode}'
+        output_path = f'{mode}-render.gif'
+        create_gif_from_images(folder_path, output_path)
