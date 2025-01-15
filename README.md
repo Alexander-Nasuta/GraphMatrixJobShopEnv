@@ -2,19 +2,80 @@
 
 A Gymnasium Environment for Job Shop Scheduling using the Graph Matrix Representation by [Błażewicz et al.](https://www.sciencedirect.com/science/article/abs/pii/S0377221799004865).
 
-- Github: [GraphMatrixJobShopEnv](https://github.com/Alexander-Nasuta/)
+- Github: [GraphMatrixJobShopEnv](https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv)
 - Pypi: [GraphMatrixJobShopEnv](https://pypi.org/project/manta-manim-theme/)
 - Documentation: [GraphMatrixJobShopEnv Docs](https://alexander-nasuta.github.io/)
 
 ## Description
 
-
+A Gymnasium Environment for Job Shop Scheduling using the Graph Matrix Representation by [Błażewicz et al.](https://www.sciencedirect.com/science/article/abs/pii/S0377221799004865).
+It can be used to solve the Job Shop Scheduling Problem (JSP) using Reinforcement Learning with libraries like [Stable Baselines3](https://stable-baselines3.readthedocs.io/en/master/) or [RLlib](https://docs.ray.io/en/latest/rllib/index.html).
+A minimal working example is provided in the [Quickstart](#quickstart) section.
 
 ## Quickstart
 
 ```shell
 pip install <<todo>>
 ```
+
+## Visualizations
+
+The environment offers multiple visualisation options.
+There are four visualisations that can be mixed and matched:
+- `human` (default): prints a Gantt chart visualisation to the console.
+- `ansi`: prints a visualisation of the graph matrix and the Gantt chart to the console.
+- `debug`: prints a visualisation of the graph matrix. The debugs visualisation is maps the elements of the successor lists and unknown list to the original graph indices of the takes ad uses colors to separate the different elements. It also prints the Gantt chart and some additional information.
+- `window`: creates a Gantt chart visualisation in a separate window.
+- `rgb_array`: creates a Gantt chart visualisation as a RGB array. This mode return the RGB array of the `window` visualisation. This can be used to create a video of the Gantt chart visualisation. 
+
+### Examples
+
+For the following Job Shop Scheduling Problem (JSP) instance:
+
+```python
+from graph_matrix_jsp_env.disjunctive_jsp_env import DisjunctiveGraphJspEnv
+import numpy as np
+
+if __name__ == '__main__':
+    custom_jsp_instance = np.array([
+        [
+            [0, 1, 2, 3],  # job 0
+            [0, 2, 1, 3]  # job 1
+        ],
+        [
+            [11, 3, 3, 12],  # task durations of job 0
+            [5, 16, 7, 4]  # task durations of job 1
+        ]
+
+    ], dtype=np.int32)
+    env = DisjunctiveGraphJspEnv(
+        jsp_instance=custom_jsp_instance,
+    )
+    obs, info = env.reset()
+    mode = 'debug' # replace with 'human', 'ansi', 'window', 'rgb_array' for different visualizations
+    env.render(mode=mode) 
+
+    for a in [5, 1, 2, 6, 3, 7, 4, 8]:
+        obs, reward, done, info, _ = env.step(a)
+        env.render(mode=mode)
+
+    env.render()
+```
+
+The individual rendering modes result in the following visualisations:
+
+#### ANSI
+
+![](https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv/raw/master/resources/asni-render.gif)
+
+#### Debug
+
+![](https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv/raw/master/resources/debug-render.gif)
+
+#### Defualt (Human)
+
+![](https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv/raw/master/resources/default-render.gif)
+
 
 
 ## State of the Project
@@ -110,12 +171,19 @@ This project uses `pytest` for testing. To run the tests, run the following comm
 ```shell
 pytest
 ```
+Here is a screenshot of what the output might look like:
+
+![](https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv/raw/master/resources/pytest-screenshot.png)
 
 For testing with `tox` run the following command:
 
 ```shell
 tox
 ```
+
+Here is a screenshot of what the output might look like:
+
+![](https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv/raw/master/resources/tox-screenshot.png)
 
 Tox will run the tests in a separate environment and will also check if the requirements are installed correctly.
 

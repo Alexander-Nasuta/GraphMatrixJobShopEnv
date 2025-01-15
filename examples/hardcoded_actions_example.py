@@ -17,7 +17,7 @@ if __name__ == '__main__':
         jsp_instance=custom_jsp_instance,
     )
     obs, info = env.reset()
-    env.render(mode='ansi')
+    env.render(mode='debug') #
 
     for a in [5, 1, 2, 6, 3, 7, 4, 8]:
         obs, reward, done, info, _ = env.step(a)
