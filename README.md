@@ -194,8 +194,13 @@ If you want to check out the code and implement new features or fix bugs, you ca
 
 clone the repository in your favorite code editor (for example PyCharm, VSCode, Neovim, etc.)
 
+using https:
 ```shell
-git clone <<todo>>
+git clone https://github.com/Alexander-Nasuta/GraphMatrixJobShopEnv.git
+```
+or by using the GitHub CLI:
+```shell
+gh repo clone Alexander-Nasuta/GraphMatrixJobShopEnv
 ```
 
 if you are using PyCharm, I recommend doing the following additional steps:
