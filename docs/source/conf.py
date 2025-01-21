@@ -45,6 +45,13 @@ exclude_patterns = []
 html_theme = 'furo'
 html_title = f"Graph Matrix Job Shop Environment"
 html_static_path = ['_static']
+html_theme_options = {
+    "light_logo": "logo-light.png",
+    "dark_logo": "logo-dark.png",
+}
+html_css_files = [
+    'custom.css',
+]
 
 # Configure autosectionlabel
 autosectionlabel_prefix_document = True

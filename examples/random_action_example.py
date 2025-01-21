@@ -23,4 +23,7 @@ if __name__ == '__main__':
     while not terminated:
         action = env.action_space.sample(mask=env.valid_action_mask())
         obs, reward, terminated, truncated, info = env.step(action)
-        env.render(mode='debug')
+        env.render(mode='ansi')
+
+    print(env.get_unknown_list(1))
+    print(env.get_unknown_list(5))

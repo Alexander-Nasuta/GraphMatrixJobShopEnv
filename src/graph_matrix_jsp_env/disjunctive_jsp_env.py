@@ -201,10 +201,13 @@ class DisjunctiveGraphJspEnv(gym.Env):
                     self._state[task_id][last_task_in_job] = last_task_in_job + self._n
 
                 # init unknown list
-                self._state[task_id][task_id] = -unknown_list[0]
-                for a, b in zip(unknown_list, unknown_list[1:]):
-                    self._state[task_id][a] = -b
-                self._state[task_id][unknown_list[-1]] = -unknown_list[-1]
+                if unknown_list:
+                    self._state[task_id][task_id] = -unknown_list[0]
+                    for a, b in zip(unknown_list, unknown_list[1:]):
+                        self._state[task_id][a] = -b
+                    self._state[task_id][unknown_list[-1]] = -unknown_list[-1]
+                else:
+                    self._state[task_id][task_id] = -task_id
 
     """
     Gym Environment Methods

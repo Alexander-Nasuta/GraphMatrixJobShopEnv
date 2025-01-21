@@ -18,6 +18,20 @@ def custom_jsp_instance():
 
 
 @pytest.fixture(scope="function")
+def single_job_jsp_instance():
+    import numpy as np
+    single_job_instance = np.array([
+        [
+            [0, 1, 2, 3],  # job 0
+        ],
+        [
+            [11, 3, 3, 12],  # task durations of job 0
+        ]
+    ], dtype=np.int32)
+    yield single_job_instance
+
+
+@pytest.fixture(scope="function")
 def ft06():
     import numpy as np
     ft06 = np.array([[[2, 0, 1, 3, 5, 4],
