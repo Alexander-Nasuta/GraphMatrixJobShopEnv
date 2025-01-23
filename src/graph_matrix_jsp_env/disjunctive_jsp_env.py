@@ -853,13 +853,17 @@ class DisjunctiveGraphJspEnv(gym.Env):
 
         done = self.is_terminal_state()
 
+        # unfortunately, we dont have any information about the past rewards
+        # so we just return the cumulative reward from the current state onwards
+        cumulative_reward_from_current_state_onwards = 0
+
         while not done:
             valid_action_list = self.valid_action_list()
             random_action = np.random.choice(valid_action_list)
-            _, _, done, _, _ = self.step(random_action)
+            _, rew, done, _, _ = self.step(random_action)
+            cumulative_reward_from_current_state_onwards += rew
 
-        makespan = self.get_makespan()
-        return makespan
+        return cumulative_reward_from_current_state_onwards
 
     def load_state(self, state: npt.NDArray) -> None:
         # this method does not check if the state is valid or not
