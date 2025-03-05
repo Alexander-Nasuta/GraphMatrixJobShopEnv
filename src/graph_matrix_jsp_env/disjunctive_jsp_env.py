@@ -289,6 +289,9 @@ class DisjunctiveGraphJspEnv(gym.Env):
         if reward_function == "makespan_scaled_by_lb":
             return - self.get_makespan() / self._makespan_lower_bound if self.is_terminal_state() else 0
 
+        if reward_function == "mcts":
+            return - self.get_makespan() / self._makespan_lower_bound + 2 if self.is_terminal_state() else 0
+
         if reward_function == "machine_utilization_ignore_unused_machines":
             return self.get_machine_utilization_ignore_unused_machines()
 

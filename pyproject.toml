@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "graph-matrix-jsp-env"
-version = "0.3.0"
+version = "0.3.1"
 description = "An enviorment for job shop scheduling using the disjunctive graph apporach and the graph matrix datastructure."
 readme = "README.md"
 authors = [{ name = "Alexander Nasuta", email = "alexander.nasuta@wzl-iqs.rwth-aachen.de" }]
