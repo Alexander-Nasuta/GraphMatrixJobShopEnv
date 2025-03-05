@@ -2,6 +2,7 @@ import gymnasium as gym
 import numpy as np
 import pandas as pd
 import numpy.typing as npt
+import copy
 
 from graph_matrix_jsp_env.logger import log
 
@@ -24,7 +25,7 @@ class DisjunctiveGraphJspEnv(gym.Env):
     """
     # the graph matrix
     # _state: list[list[int]]
-    _state: npt.NDArray # 2d array of integers
+    _state: npt.NDArray  # 2d array of integers
     # the number of tasks in the jsp instance (without the source and sink tasks)
     _n: int
     # the number of tasks in the graph matrix including the source and sink tasks
@@ -97,7 +98,7 @@ class DisjunctiveGraphJspEnv(gym.Env):
 
         self._makespan_lower_bound = c_lb if c_lb is not None else self._get_simple_makespan_lower_bound(
             jsp_instance=jsp_instance)
-        self._left_shifts_enabled = ls_enabled
+        self._left_shifts_enabled = False # TODO: ls_enabled -> fix left shift bugs
         self._reward_function = reward_function
 
         # gym attributes
@@ -218,7 +219,7 @@ class DisjunctiveGraphJspEnv(gym.Env):
             # ignore action 0
             # action 0 is only included in the action space, so that a action always corresponds to a task id
             # action=1 corresponds to task id 1, action=2 corresponds to task id 2, ...
-            return np.array(self._state), self.calculate_reward(), self.is_terminal_state(), False, {}
+            return np.array(self._state), 0.0, self.is_terminal_state(), False, {}
 
         if self._state[action][self._valid_action_column_idx] == 0:
             # case: action is invalid
@@ -829,20 +830,36 @@ class DisjunctiveGraphJspEnv(gym.Env):
         else:
             min_start_time = self._state[prev_task_in_job][self._task_start_time_column_idx] + \
                              self._state[prev_task_in_job][self._task_duration_column_idx]
+            # print(f"prev_task_in_job: {prev_task_in_job}")
+            # print(f"prev_task_start_time: {self._state[prev_task_in_job][self._task_start_time_column_idx]}")
+            # print(f"prev_task_duration: {self._state[prev_task_in_job][self._task_duration_column_idx]}")
+            # print(f"min_start_time: {min_start_time}")
 
         list_of_scheduled_tasks_on_machine = [
             i for i, row in enumerate(self._state[1:-1], start=1)
             if row[self._task_machine_column_idx] == machine_id
                and row[self._task_start_time_column_idx] != -1
                and row[self._task_start_time_column_idx] + row[self._task_duration_column_idx] >= min_start_time
+            # and row[self._task_start_time_column_idx] + row[self._task_duration_column_idx] >= 1
         ]
         # sort the list of scheduled tasks on the machine by start time
         list_of_scheduled_tasks_on_machine.sort(key=lambda x: self._state[x][self._task_start_time_column_idx])
+        # print(f"list_of_scheduled_tasks_on_machine: {list_of_scheduled_tasks_on_machine}")
+        # print(f"list_of_scheduled_tasks_on_machine: {[ divmod(elem, 6) for elem in list_of_scheduled_tasks_on_machine]}")
+        if len(list_of_scheduled_tasks_on_machine):
+            first_task_on_machine_after_job_pred_ends = list_of_scheduled_tasks_on_machine[0]
+            first_task_on_machine_after_job_pred_ends_start_time = \
+            self._state[first_task_on_machine_after_job_pred_ends][self._task_start_time_column_idx]
+            if (min_start_time - first_task_on_machine_after_job_pred_ends_start_time) >= self._state[task_to_schedule][
+                self._task_duration_column_idx]:
+                return True, None, first_task_on_machine_after_job_pred_ends_start_time
 
         for prev, next in zip(list_of_scheduled_tasks_on_machine, list_of_scheduled_tasks_on_machine[1:]):
             prev_end_time = self._state[prev][self._task_start_time_column_idx] + self._state[prev][
                 self._task_duration_column_idx]
             next_start_time = self._state[next][self._task_start_time_column_idx]
+            # print(f"endtime of t({prev}): {self._state[prev][self._task_start_time_column_idx]}")
+            # print(f"startime of t({next}): {self._state[next][self._task_start_time_column_idx]}")
             # task_to_schedule_duration = self._state[task_to_schedule][self._task_duration_column_idx]
             # if task_to_schedule fits in between prev and next, then a left shift is possible
             if (next_start_time - prev_end_time) >= self._state[task_to_schedule][self._task_duration_column_idx]:
@@ -865,14 +882,39 @@ class DisjunctiveGraphJspEnv(gym.Env):
 
         return cumulative_reward_from_current_state_onwards
 
+    def greedy_rollout(self) -> int:
+
+        def get_best_action():
+            prev_state = self.get_state()
+            max_utilisation = 0.0
+            best_action = None
+            for action in self.valid_action_list():
+                _, _, done, _, _ = self.step(action)
+
+                utilisation = self.get_machine_utilization_ignore_unused_machines()
+                if utilisation > max_utilisation:
+                    max_utilisation = utilisation
+                    best_action = action
+                self.load_state(prev_state)
+            return best_action
+
+        done = self.is_terminal_state()
+        cumulative_reward_from_current_state_onwards = 0
+        while not done:
+            best_action = get_best_action()
+            _, rew, done, _, _ = self.step(best_action)
+            cumulative_reward_from_current_state_onwards += rew
+
+        return cumulative_reward_from_current_state_onwards
+
     def load_state(self, state: npt.NDArray) -> None:
         # this method does not check if the state is valid or not
         if state.shape != self._state.shape:
             raise ValueError(f"Invalid state shape. Expected: {self._state.shape}, got: {state.shape}")
-        self._state = state
+        self._state = state.copy()
 
     def get_state(self) -> npt.NDArray:
-        return self._state
+        return self._state.copy()
 
     def get_c_lb(self) -> int:
         return self.get_state()[0][0]

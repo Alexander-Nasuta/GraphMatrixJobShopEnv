@@ -40,7 +40,6 @@ def ft06():
                       [1, 0, 2, 3, 4, 5],
                       [2, 1, 4, 5, 0, 3],
                       [1, 3, 5, 0, 4, 2]],
-
                      [[1, 3, 6, 7, 3, 6],
                       [8, 5, 10, 10, 10, 4],
                       [5, 4, 8, 9, 1, 7],
@@ -64,6 +63,23 @@ def left_shift_jsp_instance():
             [1, 1, 5],  # task durations of job 0
             [5, 3, 3],  # task durations of job 1
             [3, 6, 3]  # task durations of job 1
+        ]
+    ])
+    yield jsp_left_shift_instance
+
+@pytest.fixture(scope="function")
+def left_shift_jsp_instance2():
+    import numpy as np
+    jsp_left_shift_instance = np.array([
+        [
+            [0, 1, 2],  # job 0
+            [2, 0, 1],  # job 1
+            [1, 0, 2]  # job 3
+        ],
+        [
+            [2, 1, 5],  # task durations of job 0
+            [6, 3, 3],  # task durations of job 1
+            [1, 2, 6]  # task durations of job 1
         ]
     ])
     yield jsp_left_shift_instance

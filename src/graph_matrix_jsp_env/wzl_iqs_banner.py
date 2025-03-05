@@ -1,7 +1,7 @@
 # flake8: noqa
 import importlib.metadata
-#__version__ = importlib.metadata.version("disjunctive_graph_jsp_env")
-__version__ = "0.1.0"
+__version__ = importlib.metadata.version("graph-matrix-jsp-env")
+#__version__ = "0.1.0"
 
 VERSION = __version__
 
