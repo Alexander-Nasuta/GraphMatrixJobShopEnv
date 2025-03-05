@@ -62,6 +62,7 @@ class DisjunctiveGraphJspEnv(gym.Env):
         "machine_utilization_avg_default_0",
         "machine_utilization_avg_default_1",
         "total_machine_utilization",
+        "mcts",
     ]
 
     """
